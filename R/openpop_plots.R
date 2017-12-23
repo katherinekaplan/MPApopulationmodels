@@ -62,7 +62,7 @@ openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iteration
       ##Only works for no stochasticity
       final.N.ratio=final.N[tf]/final.N[1]
       time.ratio=final.N/final.N[tf]
-      Ntime.to.equil=length(time.ratio[time.ratio<0.95])-5 #minus 5 for the first 5 years of running not in MPA
+      Ntime.to.equil=length(time.ratio[time.ratio<0.95])-MPAtime #minus 5 for the first 5 years of running not in MPA
       Ntime.to.equil[Ntime.to.equil<0]=NA
     ##Next get biomass ratio change
     ##get lengths at age using the von-B equation
@@ -177,6 +177,7 @@ else { ##put NA in output if iterations is 1
     library(ggplot2)
     library(cowplot)
     ##put outputs in data frame to plot
+    t=seq(1,tf)
     outputs=data.frame(t,Nratio1,Bratio,Nrat.itero.mean,Nrat.itero.CI,Bratio.itero.mean,
                        Bratio.itero.CI)
     colnames(outputs)=c("t","Nratio","Bratio","Nrat.itero.mean","Nrat.itero.CI","Bratio.itero.mean","Bratio.itero.CI")
@@ -224,12 +225,3 @@ else { ##put NA in output if iterations is 1
    out=plot_grid(plot1,plot2,plot3,plot4, ncol = 2)
     return(out)
     }
-
-##kelp rf parms
-##test it out
-#openpop_plots(tf=50,M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,
-                                # maxage=25,pW=9.37e-06,qW=3.172,R=500,sig_r=0.5, iterations=10,MPAtime=5)
-
-
-
-

@@ -102,5 +102,3 @@ closedpop_parms = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   return(output)
 }
 
-##test function is working with kelp RF parms
-#closedpop(maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172)

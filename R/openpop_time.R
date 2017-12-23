@@ -1,4 +1,4 @@
-#' An open population function that calculate the length of time to reach equilibrium in response to an MPA
+#' An open population function that calculates the length of time to reach equilibrium in response to an MPA
 #'
 #'This function calculates the ratio change in a fished poulation after a marine protected area is implemented assuming external recruitment.
 #'The output is the time to reach the abundance and biomass equilibrium.

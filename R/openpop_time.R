@@ -19,8 +19,8 @@
 
 
 openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
-  tf=50
   R=500
+  tf=50
   iterations=10
   MPAtime=5
   ##First step calculate the stable age distribution of the fished popultion
@@ -57,7 +57,7 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
       Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
     }
   }
-  final.N=rowSums(Nt2[,agefish:maxage]) ##include only fished age classes
+  final.N=rowSums(Nt2[,(agefish+1):maxage]) ##include only fished age classes
   Nratio1=final.N/final.N[1]
   ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
   ##Only works for no stochasticity

@@ -19,7 +19,7 @@
 
 openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   tf=50
-   R=500
+   R=1000
   iterations=10
   MPAtime=5
   ##First step calculate the stable age distribution of the fished popultion

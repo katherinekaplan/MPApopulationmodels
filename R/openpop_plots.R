@@ -20,7 +20,7 @@
 #' @param MPAtime: the time step when the MPA is implemented in the model
 #' @keywords open population
 #' @examples #openpop_plots(tf=50,M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172,R=500,sig_r=0.5, iterations=10,MPAtime=5)
-#'openpop_plots()
+
 openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iterations,MPAtime) {
   ##First step calculate the stable age distribution of the fished popultion
   a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished derived from length fished
@@ -56,7 +56,7 @@ openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iteration
         Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
       }
     }
-      final.N=rowSums(Nt2[,agefish:maxage]) ##include only fished age classes
+      final.N=rowSums(Nt2[,(agefish+1):maxage]) ##include only fished age classes
       Nratio1=final.N/final.N[1]
       ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
       ##Only works for no stochasticity
@@ -70,7 +70,7 @@ openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iteration
     La=Linf*(1-exp(-k*(a-a0)))
     ##Now calculate weights at length
     w=pW*(La^qW)
-    weights=Nt2[,agefish:maxage]%*%w[agefish:maxage]
+    weights=Nt2[,(agefish+1):maxage]%*%w[(agefish+1):maxage]
     Bratio=weights/weights[1]
     final.B.ratio=weights[tf]/weights[1]
     time.ratio2=weights/weights[tf]

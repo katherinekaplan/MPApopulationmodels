@@ -40,7 +40,7 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   ##Get deterministic equilibrium
   for(t in 1:(tf-1)) {
     Nt[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-    Nt[t+1,2:(maxage)] = projM_fished%*%Nt[t,] #Survivorship of each age class
+    Nt[t+1,2:(maxage)] = sfx*Nt[t,1:(maxage-1)] #Survivorship of each age class  in columns 2-10
   }
   ##Second step use that stable age disbribution of the fished population as the starting vector
   ##to determine the MPA effect
@@ -51,11 +51,11 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
     ##For the first 5 time steps the population still fished
     if(t<=MPAtime){
       Nt2[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-      Nt2[t+1,2:(maxage)] = projM_fished%*%Nt[t,] #Survivorship of each age class
+      Nt2[t+1,2:(maxage)] = sfx*Nt2[t,1:(maxage-1)]
     }
     else{ ##then the population starts to fill in
       Nt2[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-      Nt2[t+1,2:(maxage)] = projM_unfished%*%Nt[t,] #Survivorship of each age class
+      Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
     }
   }
   final.N=rowSums(Nt2[,(agefish):maxage]) ##include only fished age classes

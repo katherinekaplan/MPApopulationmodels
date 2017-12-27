@@ -57,7 +57,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
       Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
     }
   }
-  final.N=rowSums(Nt2[,agefish:maxage]) ##include only fished age classes
+  final.N=rowSums(Nt2[,(agefish+1):maxage]) ##include only fished age classes
   Nratio1=final.N/final.N[1]
   ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
   ##Only works for no stochasticity
@@ -71,7 +71,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   La=Linf*(1-exp(-k*(a-a0)))
   ##Now calculate weights at length
   w=pW*(La^qW)
-  weights=Nt2[,agefish:maxage]%*%w[agefish:maxage]
+  weights=Nt2[,(agefish+1):maxage]%*%w[agefish:maxage]
   Bratio=weights/weights[1]
   final.B.ratio=weights[tf]/weights[1]
   time.ratio2=weights/weights[tf]
@@ -104,7 +104,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
           Nt3[t+1,1] = R*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
           Nt3[t+1,2:(maxage)] = sxs*Nt3[t,1:(maxage-1)]#Survivorship of each age class
         }}
-      final.N3=rowSums(Nt3[,a_harv0:maxage]) ##include only fished age classes
+      final.N3=rowSums(Nt3[,(agefish+1):maxage]) ##include only fished age classes
       Nratio2=final.N3/final.N3[1]
       return(Nratio2)  ##returns your final response ratio
     }
@@ -147,7 +147,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
       La=Linf*(1-exp(-k*(a-a0))) ##von-B eqn calculates lengths at age
       ##Now calculate weights at length
       w=pW*(La^qW) ##weights at length in kg
-      weights=Nt4[,a_harv0:maxage]%*%w[a_harv0:maxage] ##get weights of fished age classes only
+      weights=Nt4[,(a_harv0+1):maxage]%*%w[(a_harv0+1):maxage] ##get weights of fished age classes only
       bratio.stoch=weights/weights[1]
       return(bratio.stoch)
     }

@@ -17,8 +17,8 @@
 #' @examples openpop_ratio(M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172,sig_r=0.5)
 
 openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
-  tf=50
-   R=1000
+  tf=100
+   R=500
   iterations=10
   MPAtime=5
   ##First step calculate the stable age distribution of the fished popultion
@@ -27,10 +27,10 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   N0=rep(100,maxage) #Initial pop vector, start with 100 individual in each age class
   N0[1]=R
   #set.seed(1) #Set the seed so that every simulation uses same random sequence
-  s=exp(-M)#no fishing case
-  sf=exp(-(M+Fi)) ##fishing case
+  s=1-M#no fishing case
+  sf=1-(M+Fi) ##fishing case
   sfx=rep(sf,maxage-1)
-  sfx[1:agefish]=rep(s,agefish)
+  sfx[1:(agefish-1)]=rep(s,(agefish-1))
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1
   Nt = matrix(0,tf,maxage) #Initialize vector of population sizes with extra columns for spawners and recruitment before variability
   Nt[1,] = N0 #Put in initial values
@@ -42,7 +42,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   }
   ##Second step use that stable age disbribution of the fished population as the starting vector
   ##to determine the MPA effect
-  N0=Nt[50,]##the stable age dist values from the fished state
+  N0=Nt[tf,]##the stable age dist values from the fished state
   Nt2 = matrix(0,tf,maxage) #Initialize matrix of population sizes for second step
   Nt2[1,] = N0 #Put in initial values
   for(t in 1:(tf-1)) {
@@ -56,7 +56,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
       Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
     }
   }
-  final.N=rowSums(Nt2[,(agefish+1):maxage]) ##include only fished age classes
+  final.N=rowSums(Nt2[,(agefish):maxage]) ##include only fished age classes
   Nratio1=final.N/final.N[1]
   ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
   ##Only works for no stochasticity

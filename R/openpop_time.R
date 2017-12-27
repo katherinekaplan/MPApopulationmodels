@@ -28,34 +28,37 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   N0[1]=R ##except the first one, start with the atarting recruit number
   s=exp(-M)#no fishing case
   sf=exp(-(M+Fi)) ##fishing case
-  sfx=rep(sf,maxage-1)
-  sfx[1:agefish]=rep(s,agefish) ##set regular survival with no f for unfished age classes
+  sfx=rep(sf,maxage)
+  sfx[1:agefish]=rep(s,(agefish-1)) ##set regular survival with no f for unfished age classes
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1
   Nt = matrix(0,tf,maxage) #Initialize vector of population sizes with extra columns for spawners and recruitment before variability
   Nt[1,] = N0 #Put in initial values
   t<-1
+  fec0=rep(0,maxage)##empty fecundity vector
+  projM_unfished = rbind(cbind(diag(sxs),0))  # diag creates diagonal matrix with terms exp(-M) for a = 1:acls-1 and 0 for a = acls
+  projM_fished = rbind(cbind(diag(sfx),0))
   ##Get deterministic equilibrium
   for(t in 1:(tf-1)) {
     Nt[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-    Nt[t+1,2:(maxage)] = sfx*Nt[t,1:(maxage-1)] #Survivorship of each age class  in columns 2-10
+    Nt[t+1,2:(maxage)] = projM_fished%*%Nt[t,] #Survivorship of each age class
   }
   ##Second step use that stable age disbribution of the fished population as the starting vector
   ##to determine the MPA effect
-  N0=Nt[50,]##the stable age dist values from the fished state
+  N0=Nt[tf,]##the stable age dist values from the fished state
   Nt2 = matrix(0,tf,maxage) #Initialize matrix of population sizes for second step
   Nt2[1,] = N0 #Put in initial values
   for(t in 1:(tf-1)) {
     ##For the first 5 time steps the population still fished
     if(t<=MPAtime){
       Nt2[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-      Nt2[t+1,2:(maxage)] = sfx*Nt2[t,1:(maxage-1)]
+      Nt2[t+1,2:(maxage)] = projM_fished%*%Nt[t,] #Survivorship of each age class
     }
     else{ ##then the population starts to fill in
       Nt2[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-      Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
+      Nt2[t+1,2:(maxage)] = projM_unfished%*%Nt[t,] #Survivorship of each age class
     }
   }
-  final.N=rowSums(Nt2[,(agefish+1):maxage]) ##include only fished age classes
+  final.N=rowSums(Nt2[,(agefish):maxage]) ##include only fished age classes
   Nratio1=final.N/final.N[1]
   ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
   ##Only works for no stochasticity
@@ -69,7 +72,7 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   La=Linf*(1-exp(-k*(a-a0)))
   ##Now calculate weights at length
   w=pW*(La^qW)
-  weights=Nt2[,(agefish+1):maxage]%*%w[(agefish+1):maxage]
+  weights=Nt2[,(agefish):maxage]%*%w[(agefish):maxage]
   Bratio=weights/weights[1]
   final.B.ratio=weights[tf]/weights[1]
   time.ratio2=weights/weights[tf]
@@ -80,5 +83,5 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   return( outputvars)
 }
 
-
+openpop_time(M=0.2,Fi=0.17,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172)
 

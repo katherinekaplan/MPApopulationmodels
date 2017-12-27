@@ -23,14 +23,13 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   iterations=10
   MPAtime=5
   ##First step calculate the stable age distribution of the fished popultion
-
   a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished
   agefish=round(a_harv0,digits=0)
   N0=rep(100,maxage) #Initial pop vector, start with 100 individual in each age class
   N0[1]=R
   #set.seed(1) #Set the seed so that every simulation uses same random sequence
-  s=1-M#no fishing case
-  sf=1-(M+Fi) ##fishing case
+  s=exp(-M)#no fishing case
+  sf=exp(-(M+Fi)) ##fishing case
   sfx=rep(sf,maxage-1)
   sfx[1:agefish]=rep(s,agefish)
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1

@@ -16,8 +16,6 @@
 #' @keywords closed population, population dynamics, Leslie matrix
 #' @examples openpop_time(M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172)
 
-
-
 openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   R=500
   tf=50
@@ -71,7 +69,7 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   La=Linf*(1-exp(-k*(a-a0)))
   ##Now calculate weights at length
   w=pW*(La^qW)
-  weights=Nt2[,agefish:maxage]%*%w[agefish:maxage]
+  weights=Nt2[,(agefish+1):maxage]%*%w[(agefish+1):maxage]
   Bratio=weights/weights[1]
   final.B.ratio=weights[tf]/weights[1]
   time.ratio2=weights/weights[tf]

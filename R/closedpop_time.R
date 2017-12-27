@@ -84,7 +84,7 @@ closedpop_time = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   ##Calculate the rate of convergence, rho
   rho=Re(lambda1.fished/abs(lambda2.fished))
   ##calculate total length of transience
-  t.t=log(0.05)/-log(rho)
+  t.t=log(0.01)/-log(rho)
   ##Calculate theta
   w1=abs(Re(eigen(projM_unfished)$vectors[,1]))
   theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))

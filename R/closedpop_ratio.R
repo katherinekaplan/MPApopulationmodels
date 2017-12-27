@@ -15,7 +15,7 @@
 #' @param qw: weight length relationship estmate, same as b on fishbase.org
 #' @keywords closed population, population dynamics, Leslie matrix
 #' @examples closedpop_ratio(maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172)
-#'closedpop_ratio()
+
 closedpop_ratio = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   tf=50 #time steps to run the population
   time2=seq(1,50)

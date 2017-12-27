@@ -34,9 +34,6 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   Nt = matrix(0,tf,maxage) #Initialize vector of population sizes with extra columns for spawners and recruitment before variability
   Nt[1,] = N0 #Put in initial values
   t<-1
-  fec0=rep(0,maxage)##empty fecundity vector
-  projM_unfished = rbind(cbind(diag(sxs),0))  # diag creates diagonal matrix with terms exp(-M) for a = 1:acls-1 and 0 for a = acls
-  projM_fished = rbind(cbind(diag(sfx),0))
   ##Get deterministic equilibrium
   for(t in 1:(tf-1)) {
     Nt[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)

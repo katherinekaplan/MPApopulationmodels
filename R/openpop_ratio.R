@@ -17,7 +17,7 @@
 #' @examples openpop_ratio(M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172,sig_r=0.5)
 
 openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
-  tf=100
+  tf=50
    R=500
   iterations=10
   MPAtime=5
@@ -27,8 +27,8 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   N0=rep(100,maxage) #Initial pop vector, start with 100 individual in each age class
   N0[1]=R
   #set.seed(1) #Set the seed so that every simulation uses same random sequence
-  s=1-M#no fishing case
-  sf=1-(M+Fi) ##fishing case
+  s=exp(-M)#no fishing case
+  sf=exp(-(M+Fi)) ##fishing case
   sfx=rep(sf,maxage-1)
   sfx[1:(agefish-1)]=rep(s,(agefish-1))
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1
@@ -70,7 +70,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
   La=Linf*(1-exp(-k*(a-a0)))
   ##Now calculate weights at length
   w=pW*(La^qW)
-  weights=Nt2[,(agefish+1):maxage]%*%w[(agefish+1):maxage]
+  weights=Nt2[,(agefish):maxage]%*%w[(agefish):maxage]
   Bratio=weights/weights[1]
   final.B.ratio=weights[tf]/weights[1]
   time.ratio2=weights/weights[tf]
@@ -103,7 +103,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
           Nt3[t+1,1] = R*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
           Nt3[t+1,2:(maxage)] = sxs*Nt3[t,1:(maxage-1)]#Survivorship of each age class
         }}
-      final.N3=rowSums(Nt3[,(agefish+1):maxage]) ##include only fished age classes
+      final.N3=rowSums(Nt3[,(agefish):maxage]) ##include only fished age classes
       Nratio2=final.N3/final.N3[1]
       return(Nratio2)  ##returns your final response ratio
     }
@@ -146,7 +146,7 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
       La=Linf*(1-exp(-k*(a-a0))) ##von-B eqn calculates lengths at age
       ##Now calculate weights at length
       w=pW*(La^qW) ##weights at length in kg
-      weights=Nt4[,(agefish+1):maxage]%*%w[(agefish+1):maxage] ##get weights of fished age classes only
+      weights=Nt4[,(agefish):maxage]%*%w[(agefish):maxage] ##get weights of fished age classes only
       bratio.stoch=weights/weights[1]
       return(bratio.stoch)
     }

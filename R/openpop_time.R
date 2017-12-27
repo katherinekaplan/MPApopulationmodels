@@ -22,14 +22,15 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   iterations=10
   MPAtime=5
   ##First step calculate the stable age distribution of the fished popultion
-  a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished derived from length fished
-  agefish=round(a_harv0,digits=0) ##make it a whole number to use in age structure matrix
+  a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished
+  agefish=round(a_harv0,digits=0)
   N0=rep(100,maxage) #Initial pop vector, start with 100 individual in each age class
-  N0[1]=R ##except the first one, start with the atarting recruit number
-  s=exp(-M)#no fishing case
-  sf=exp(-(M+Fi)) ##fishing case
-  sfx=rep(sf,maxage)
-  sfx[1:agefish]=rep(s,(agefish-1)) ##set regular survival with no f for unfished age classes
+  N0[1]=R
+  #set.seed(1) #Set the seed so that every simulation uses same random sequence
+  s=1-M#no fishing case
+  sf=1-(M+Fi) ##fishing case
+  sfx=rep(sf,maxage-1)
+  sfx[1:(agefish-1)]=rep(s,(agefish-1))
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1
   Nt = matrix(0,tf,maxage) #Initialize vector of population sizes with extra columns for spawners and recruitment before variability
   Nt[1,] = N0 #Put in initial values
@@ -37,7 +38,7 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   ##Get deterministic equilibrium
   for(t in 1:(tf-1)) {
     Nt[t+1,1] = R#*(exp(sig_r*rnorm(1,mean=0, sd=1))) #Recruits after variability in column 1, rnorm to generate random number for 1 point (n=1)
-    Nt[t+1,2:(maxage)] = sfx*Nt[t,1:(maxage-1)] #Survivorship of each age class  in columns 2-10
+    Nt[t+1,2:(maxage)] = sfx*Nt[t,1:(maxage-1)] #Survivorship of each age class
   }
   ##Second step use that stable age disbribution of the fished population as the starting vector
   ##to determine the MPA effect

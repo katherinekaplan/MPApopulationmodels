@@ -30,7 +30,7 @@ openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iteration
   s=exp(-M)#no fishing case
   sf=exp(-(M+Fi)) ##fishing case
   sfx=rep(sf,maxage-1)
-  sfx[1:agefish]=rep(s,agefish) ##set regular survival with no f for unfished age classes
+  sfx[1:(agefish-1)]=rep(s,(agefish-1)) ##set regular survival with no f for unfished age classes
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1
   Nt = matrix(0,tf,maxage) #Initialize vector of population sizes with extra columns for spawners and recruitment before variability
   Nt[1,] = N0 #Put in initial values
@@ -56,7 +56,7 @@ openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iteration
         Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
       }
     }
-      final.N=rowSums(Nt2[,(agefish+1):maxage]) ##include only fished age classes
+      final.N=rowSums(Nt2[,agefish:maxage]) ##include only fished age classes
       Nratio1=final.N/final.N[1]
       ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
       ##Only works for no stochasticity
@@ -70,7 +70,7 @@ openpop_plots = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,iteration
     La=Linf*(1-exp(-k*(a-a0)))
     ##Now calculate weights at length
     w=pW*(La^qW)
-    weights=Nt2[,(agefish+1):maxage]%*%w[(agefish+1):maxage]
+    weights=Nt2[,(agefish):maxage]%*%w[(agefish):maxage]
     Bratio=weights/weights[1]
     final.B.ratio=weights[tf]/weights[1]
     time.ratio2=weights/weights[tf]

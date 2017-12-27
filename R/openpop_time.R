@@ -27,8 +27,8 @@ openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {
   N0=rep(100,maxage) #Initial pop vector, start with 100 individual in each age class
   N0[1]=R
   #set.seed(1) #Set the seed so that every simulation uses same random sequence
-  s=1-M#no fishing case
-  sf=1-(M+Fi) ##fishing case
+  s=exp(-M)#no fishing case
+  sf=exp(-(M+Fi)) ##fishing case
   sfx=rep(sf,maxage-1)
   sfx[1:(agefish-1)]=rep(s,(agefish-1))
   sxs=rep(s,maxage-1) #Survival vector ##number of s is ageclasses-1

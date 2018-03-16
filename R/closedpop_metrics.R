@@ -1,11 +1,11 @@
-#' A closed population parameters
+#' A closed population function that calculates metrics of transient population responses to marine protected area implementation
 #'
 #'This function calculates the ratio change in a fished population after a marine protected area is implemented assuming  closed population.
 #'It also calculates metrics of the transient response of an MPA using the methods described in
 #' White et al. 2013 'Transient responses of fished populations to marine reserve establishment' published in conservation letters.
-#'It uses a Leslies matrix and the output is a data frame with population ratio changes from a fished population to unfished in the MPA.
-#'Lambda is set to 1 inside the MPA, the starting population vector is the stable age distribution of the fished state
+#'It uses a Leslies matrix and the output is metrics that evaluate the transient dynamic for a closed population
 
+#' @param tf: the time step to run the population
 #' @param maxage: max age of the species ie. number of age classes
 #' @param Lmat: length at maturity
 #' @param M: the natural mortality rate, if unknown generally use 0.2
@@ -15,12 +15,19 @@
 #' @param a0: same as t0 in von-bertallanfy growth parameter
 #' @param pw: weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
 #' @param qw: weight length relationship estmate, same as b on fishbase.org
+#' @param lambda: the population growth rate in the MPA
+#' @return P1: the period of oscillations
+#' @return rho: the rate of return to the stable age distribution in the MPA
+#' @return theta: the angle between the initial conditions of the fished state and the stable age distribution in the MPA
+#' @return Nratio: the abundance changes over time
+#' @return Bratio: the biomass changes over time
+#' @return fm_ratio: the fishing mortality rate to natural mortality rate ratio
+#' @return transient_length: the approximate length of the transient duration
 #' @keywords closed population, population dynamics, Leslie matrix
-#' @examples closedpop_parms(maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172)
-#'closedpop_parms()
+#' @examples closedpop_metrics(tf=50, maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172,lambda=1)
+#'closedpop_metrics()
 
-closedpop_parms = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
-  tf=50 #time steps to run the population
+closedpop_metrics = function(tf,maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW,lambda) {
   a_mat0=(log((Lmat-Linf)/-Linf)/-k)+a0 ##calculate the age at maturity from length
   a_mat=round(a_mat0,digits=0)##rounds that age to whole number to input into leslie matrix
   a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished calculated from length fished
@@ -42,7 +49,7 @@ closedpop_parms = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   ##Alpha calc function, calculate the alpha (fecundity value)
   ##needed to keep the unfished population growing at at lambda rate of 1.02
   ##can adjust that growth rate assumption by changing lambdaGoal
-  lambdaGoal=1.0
+  lambdaGoal=lambda
   alphafun=function(alpha){ ##function to calculate lambda, which will be used below to calculate correct alpha level
     ma_final = alpha*ma ##top row of Leslie matrix
     projM_unfished = rbind(ma_final,cbind(diag(c(exp(-M[1:(maxage-1)]))),0)) ##sets up Leslie matrix
@@ -82,6 +89,7 @@ closedpop_parms = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   ##Now calculate weights at length
   w=pW*(La^qW)
   weights=Nc[,a_harv:maxage]%*%w[a_harv:maxage]
+  weights=as.vector(weights)
   Bratio=weights/weights[1]
   ##Calculate period
   P1=2*pi/atan((Im(lambda2.fished)/Re(lambda2.fished)))
@@ -93,9 +101,8 @@ closedpop_parms = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   w1=abs(Re(eigen(projM_unfished)$vectors[,1]))
   theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))
   ages=seq(1:maxage)
-  output=list(alpha=alpha,lambda1.unfished=lambda1.unfished,lambda2.unfished=lambda2.unfished,
-              lambda1.fished=lambda1.fished,lambda2.fished=lambda2.fished,amf=amf,P1=P1,rho=rho,
-              theta=theta,Nratioc=Nratioc,Bratio=Bratio, a_mat=a_mat0,fm_ratio=fm_ratio,
+  output=list(P1=P1,rho=rho,
+              theta=theta,Nratio=Nratioc,Bratio=Bratio,fm_ratio=fm_ratio,
               transient_length=t.t)
   return(output)
 }

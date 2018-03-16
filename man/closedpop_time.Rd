@@ -2,14 +2,16 @@
 % Please edit documentation in R/closedpop_time.R
 \name{closedpop_time}
 \alias{closedpop_time}
-\title{A closed population function that calculate the lenght of time of the transient period after MPA implementation for a deterministic model
+\title{A closed population function that calculates the length of time of the transient period after MPA implementation for a deterministic model
 This function calculates the ratio change in a fished poulation after a marine protected area is implemented assuming  closed population
 method is from White et al. 2013 'transient responses of fished populations to marine reserve establishment published in conservation letters
 assumes a lambda of 1.0 in the MPA}
 \usage{
-closedpop_time(maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW)
+closedpop_time(tf, maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW)
 }
 \arguments{
+\item{tf}{the number of time step to run the population}
+
 \item{maxage}{max age of the species ie. number of age classes}
 
 \item{Lmat}{length at maturity}
@@ -28,8 +30,11 @@ closedpop_time(maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW)
 
 \item{qw}{weight length relationship estmate, same as b on fishbase.org}
 }
+\value{
+transient_length is the length of time of the transient duration for the closed population
+}
 \description{
-A closed population function that calculate the lenght of time of the transient period after MPA implementation for a deterministic model
+A closed population function that calculates the length of time of the transient period after MPA implementation for a deterministic model
 This function calculates the ratio change in a fished poulation after a marine protected area is implemented assuming  closed population
 method is from White et al. 2013 'transient responses of fished populations to marine reserve establishment published in conservation letters
 assumes a lambda of 1.0 in the MPA

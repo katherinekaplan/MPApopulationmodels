@@ -1,7 +1,8 @@
-#' A closed population function that calculate the lenght of time of the transient period after MPA implementation for a deterministic model
+#' A closed population function that calculates the length of time of the transient period after MPA implementation for a deterministic model
 #'This function calculates the ratio change in a fished poulation after a marine protected area is implemented assuming  closed population
 #'method is from White et al. 2013 'transient responses of fished populations to marine reserve establishment published in conservation letters
 #' assumes a lambda of 1.0 in the MPA
+#' @param tf the number of time step to run the population
 #' @param maxage max age of the species ie. number of age classes
 #' @param Lmat length at maturity
 #' @param M the natural mortality rate, if unknown generally use 0.2
@@ -11,12 +12,12 @@
 #' @param a0 same as t0 in von-bertallanfy growth parameter
 #' @param pw weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
 #' @param qw weight length relationship estmate, same as b on fishbase.org
+#' @return transient_length is the length of time of the transient duration for the closed population
 #' @keywords closed population, population dynamics, Leslie matrix
 #' @examples closedpop_time(M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172)
 #'closed_time()
 
-closedpop_time = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
-  tf=50 #time steps to run the population
+closedpop_time = function(tf,maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   a_mat0=(log((Lmat-Linf)/-Linf)/-k)+a0 ##calculate the age at maturity from length
   a_mat=round(a_mat0,digits=0)##rounds that age to whole number to input into leslie matrix
   a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished calculated from length fished
@@ -89,8 +90,6 @@ closedpop_time = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   w1=abs(Re(eigen(projM_unfished)$vectors[,1]))
   theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))
   ages=seq(1:maxage)
-  mean.spawn=sum(((v1*ma_final)/sum(v1*ma_final))*ages)
-  Cv.spawn=sd(((v1*ma_final)/sum(v1*ma_final))*ages)/mean.spawn
   output=list(transient_length=t.t)
   return(output)
 }

@@ -8,15 +8,17 @@
 #' @param Lmat: length at maturity
 #' @param M: the natural mortality rate, if unknown generally use 0.2
 #' @param Fi: the fishing mortality rate, F, find in stock assessment if don't have more localized estimate
-#' @param Linf: von-bertallanfy growth parameter estimate, can find on fishbase
+#' @param Linf: asymptotic growth rate used in von-Bertallanfy growth equation
 #' @param k: von-bertallanfy growth parameter estimate
-#' @param a0: same as t0 in von-bertallanfy growth parameter
+#' @param a0: the age at length 0 used in the von-Bertallanfy growth equation
 #' @param pw: weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
 #' @param qw: weight length relationship estmate, same as b on fishbase.org
+#' @param lambda: set the ppulation growth rate in the MPA
+#' @param timeplot: the time of the transient duration to plot on the output
 #' @keywords closed population, population dynamics, Leslie matrix
-#' @examples closedpop_ratio(maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172)
+#' @examples closedpop_plot(maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172,lambda=1,timeplot=30)
 
-closedpop_ratio = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
+closedpop_plot = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW,lambda,timeplot) {
   tf=50 #time steps to run the population
   time2=seq(1,50)
   a_mat0=(log((Lmat-Linf)/-Linf)/-k)+a0 ##calculate the age at maturity from length
@@ -40,7 +42,7 @@ closedpop_ratio = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   ##Alpha calc function, calculate the alpha (fecundity value)
   ##needed to keep the unfished population growing at at lambda rate of 1.02
   ##can adjust that growth rate assumption by changing lambdaGoal
-  lambdaGoal=1.0
+  lambdaGoal=lambda
   alphafun=function(alpha){ ##function to calculate lambda, which will be used below to calculate correct alpha level
     ma_final = alpha*ma ##top row of Leslie matrix
     projM_unfished = rbind(ma_final,cbind(diag(c(exp(-M[1:(maxage-1)]))),0)) ##sets up Leslie matrix
@@ -81,18 +83,18 @@ closedpop_ratio = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   w=pW*(La^qW)
   weights=Nc[,a_harv:maxage]%*%w[a_harv:maxage]
   Bratio=weights/weights[1]
-  ##Calculate period
-  P1=2*pi/atan((Im(lambda2.fished)/Re(lambda2.fished)))
-  ##Calculate the rate of convergence, rho
-  rho=Re(lambda1.fished/abs(lambda2.fished))
-  ##calculate total length of transience
-  t.t=log(0.1)/-log(rho)
-  ##Calculate theta
-  w1=abs(Re(eigen(projM_unfished)$vectors[,1]))
-  theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))
-  ages=seq(1:maxage)
-  output=data.frame(Nratioc=Nratioc[1:30],time2=time2[1:30])
-  return(output)
+time=seq(1:timeplot)
+  output=data.frame(Nratio=Nratioc[1:timeplot],Bratio=Bratio[1:timeplot],time=seq(1:timeplot))
+  library(ggplot2)
+  library(cowplot)
+  out= ggplot(output, aes(x=time, y=Nratio))+
+    geom_line(aes(y=Nratio,colour = "abundance" ),size=1)+
+    geom_line(aes(y= Bratio,colour = "biomass"),size=1)+
+    ylab("ratio")+
+    xlab("time")+
+    theme_gray()+
+    scale_colour_discrete("")
+  return(out)
 }
 
 

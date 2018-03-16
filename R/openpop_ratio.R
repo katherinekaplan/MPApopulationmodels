@@ -256,6 +256,7 @@ openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,s
                     "Nrat.mean.noMPA","Nrat.lowerCI.noMPA","Nrat.upperCI.noMPA",
                     "Bratio.sim.mean","Brat.lowerCI.MPA","Brat.upperCI.MPA",
                     "Brat.mean.noMPA","Brat.lowerCI.noMPA","Brat.upperCI.noMPA")
+  attach(newdf)
   return(newdf)
 }
 

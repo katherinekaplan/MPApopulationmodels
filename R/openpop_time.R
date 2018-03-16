@@ -13,7 +13,7 @@
 #' @param pw: weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
 #' @param qw: weight length relationship estmate, same as b on fishbase.org
 #' @param sig_r: stochastic parameter, log-normal distribution, around recruitment
-#' @keywords closed population, population dynamics, Leslie matrix
+#' @keywords open population, population dynamics
 #' @examples openpop_time(M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172)
 
 openpop_time = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW) {

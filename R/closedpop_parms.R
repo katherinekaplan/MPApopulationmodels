@@ -1,7 +1,7 @@
 #' A closed population parameters
 #'
-#'This function calculates the ratio change in a fished poulation after a marine protected area is implemented assuming  closed population.
-#'It also calculates parameters of the transient response of an MPA using the methods described in
+#'This function calculates the ratio change in a fished population after a marine protected area is implemented assuming  closed population.
+#'It also calculates metrics of the transient response of an MPA using the methods described in
 #' White et al. 2013 'Transient responses of fished populations to marine reserve establishment' published in conservation letters.
 #'It uses a Leslies matrix and the output is a data frame with population ratio changes from a fished population to unfished in the MPA.
 #'Lambda is set to 1 inside the MPA, the starting population vector is the stable age distribution of the fished state
@@ -87,17 +87,15 @@ closedpop_parms = function(maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW) {
   P1=2*pi/atan((Im(lambda2.fished)/Re(lambda2.fished)))
   ##Calculate the rate of convergence, rho
   rho=Re(lambda1.fished/abs(lambda2.fished))
-  ##calculate total length of transience
+  ##calculate total length of transience based on the rate of convergence
   t.t=log(0.1)/-log(rho)
-  ##Calculate theta
+  ##Calculate theta, the angle between N0 in the fished state and stable age distribution in the MPA
   w1=abs(Re(eigen(projM_unfished)$vectors[,1]))
   theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))
   ages=seq(1:maxage)
-  mean.spawn=sum(((v1*ma_final)/sum(v1*ma_final))*ages)
-  Cv.spawn=sd(((v1*ma_final)/sum(v1*ma_final))*ages)/mean.spawn
   output=list(alpha=alpha,lambda1.unfished=lambda1.unfished,lambda2.unfished=lambda2.unfished,
               lambda1.fished=lambda1.fished,lambda2.fished=lambda2.fished,amf=amf,P1=P1,rho=rho,
-              theta=theta,Nratioc=Nratioc,Bratio=Bratio,Cv.spawn=Cv.spawn, a_mat=a_mat0,fm_ratio=fm_ratio,
+              theta=theta,Nratioc=Nratioc,Bratio=Bratio, a_mat=a_mat0,fm_ratio=fm_ratio,
               transient_length=t.t)
   return(output)
 }

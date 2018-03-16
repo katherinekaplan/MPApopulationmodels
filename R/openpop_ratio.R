@@ -173,8 +173,6 @@ openpop_ratio = function(maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,sig_r) {
     B.se=NA
     B.CI=NA
   }
-
-
  Nratio=Nratio1
   Nrat.itero.mean=Nrat.mean
   Nrat.itero.CI=CI

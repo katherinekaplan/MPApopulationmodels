@@ -104,7 +104,7 @@ closedpop_ratio = function(tf,maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW,lambda) {
   time=seq(1,tf)
   Nratio=Nratio1[1:30]
   newdf2=data.frame(time[1:30],Nratio[1:30],Bratio[1:30])
-  colnames(newdf2)=c("time","Nratio1","Bratio")
+  colnames(newdf2)=c("time","Nratio","Bratio")
   attach(newdf2)
   return(newdf2)
 }

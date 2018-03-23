@@ -1,10 +1,13 @@
 Package: MPApopulationmodels
 Type: Package
-Title: This package includes a series of functions that determine population responses to marine protected areas (MPAs)
+Date: 2018-03-23
+Title: Population responses to marine protected areas (MPAs)
 Version: 0.1.0
-Author: Katherine Kaplan
-Maintainer: kaplanka521@gmail.com
-Description: This package contains seven functions that output different plots and metrics of population responses to marine protected areas.    closedpop_metrics calculates rho (the rate of return to the stable age distribution in an unfished population),  theta (the angle between the stable age distribution in the MPA), and P1 (the period of oscillations), Nratio (the change in abundance in the MPA as compared to the fished state over time), and Bratio (the change in biomass of in the MPA over time as compared to the fished state), fm_ratio (the fishing mortality to natural mortality ratio), and transient_length (the approximate length of the transient period calculated from rho).    closedpop_plot provides a plotted abundance and biomass ratio response over time for a closed population using ggplot.    openpop_ratio provides population changes assuming an open population output into a data frame with deterministic results and result with stochastic recruitment.  openpop_plots provides a plot of the deterministic and stochastic population responses.    See documentation for each function for more information on inputs and outputs of the functions.
+Authors@R: c(person("Katherine", "Kaplan", role = c("aut", "cre"),
+                     email = "kaplanka521@gmail.com"))
+Maintainer: Katherine Kaplan <kaplanka521@gmail.com>
+Depends: R (>= 3.1.0), ggplot2, cowplot
+Description: This package contains functions that output different plots and metrics of population responses to marine protected areas.   It can be used to predict population responses to MPAs over time based on species life history characteristics and prior fishing mortality. closedpop_metrics calculates rho (the rate of return to the stable age distribution in an unfished population),  theta (the angle between the stable age distribution in the MPA), and P1 (the period of oscillations), Nratio (the change in abundance in the MPA as compared to the fished state over time), and Bratio (the change in biomass of in the MPA over time as compared to the fished state), fm_ratio (the fishing mortality to natural mortality ratio), and transient_length (the approximate length of the transient period calculated from rho).    closedpop_plot provides a plotted abundance and biomass ratio response over time for a closed population using ggplot.    openpop_ratio provides population changes assuming an open population output into a data frame with deterministic results and result with stochastic recruitment.  openpop_plots provides a plot of the deterministic and stochastic population responses.    See documentation for each function for more information on inputs and outputs of the functions.
 License: 
 Encoding: UTF-8
 LazyData: true

@@ -2,11 +2,13 @@
 % Please edit documentation in R/closedpop_ratio.R
 \name{closedpop_ratio}
 \alias{closedpop_ratio}
-\title{A closed population ratio calculation function}
+\title{A closed population function that calculates metrics of transient population responses to marine protected area implementation}
 \usage{
-closedpop_ratio(maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW)
+closedpop_ratio(tf, maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW, lambda)
 }
 \arguments{
+\item{tf:}{the time step to run the population}
+
 \item{maxage:}{max age of the species ie. number of age classes}
 
 \item{Lmat:}{length at maturity}
@@ -24,14 +26,33 @@ closedpop_ratio(maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW)
 \item{pw:}{weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
 
 \item{qw:}{weight length relationship estmate, same as b on fishbase.org}
+
+\item{lambda:}{the population growth rate in the MPA}
+}
+\value{
+P1: the period of oscillations
+
+rho: the rate of return to the stable age distribution in the MPA
+
+theta: the angle between the initial conditions of the fished state and the stable age distribution in the MPA
+
+Nratio: the abundance changes over time
+
+Bratio: the biomass changes over time
+
+fm_ratio: the fishing mortality rate to natural mortality rate ratio
+
+transient_length: the approximate length of the transient duration
 }
 \description{
-This function calculates the ratio change in a fished poulation after a marine protected area is implemented assuming  closed population
-method is from White et al. 2013 'transient responses of fished populations to marine reserve establishment published in conservation letters
-It uses a Leslies matrix and the output is a data frame with population ratio changes from a fished population to unfished in the MPA
+This function calculates the ratio change in a fished population after a marine protected area is implemented assuming  closed population.
+It also calculates metrics of the transient response of an MPA using the methods described in
+White et al. 2013 'Transient responses of fished populations to marine reserve establishment' published in conservation letters.
+It uses a Leslies matrix and the output is metrics that evaluate the transient dynamic for a closed population
 }
 \examples{
-closedpop_ratio(maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172)
+closedpop_ratio(tf=50, maxage=25,Lmat=18,Lfish=25,M=0.2,Fi=0.17, Linf=37.8,k=0.23,a0=-0.7,pW=6.29e-06,qW=3.172,lambda=1)
+closedpop_ratio()
 }
 \keyword{Leslie}
 \keyword{closed}

@@ -73,9 +73,9 @@ openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,s
       Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
     }
   }
-  Nt2=Nt2
+###need to fix this
   final.N=rowSums(Nt2[,agefish:maxage]) ##include only fished age classes
-  Nratio1=final.N/final.N[1]
+  Nratio1=final.N/sum(N0)
   ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
   ##Only works for no stochasticity
   final.N.ratio=final.N[tf]/final.N[1]

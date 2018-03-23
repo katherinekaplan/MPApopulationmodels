@@ -101,9 +101,10 @@ closedpop_metrics = function(tf,maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW,lambda) 
   w1=abs(Re(eigen(projM_unfished)$vectors[,1]))
   theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))
   ages=seq(1:maxage)
+  time=seq(1:tf)
   output=list(P1=P1,rho=rho,
-              theta=theta,Nratio=Nratioc,Bratio=Bratio,fm_ratio=fm_ratio,
-              transient_length=t.t)
+              theta=theta,Nratio=Nratioc[1:30],Bratio=Bratio[1:30],fm_ratio=fm_ratio,
+              transient_length=t.t,time=time[1:30])
   return(output)
 }
 

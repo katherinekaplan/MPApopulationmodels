@@ -33,7 +33,7 @@
 #' @return Brat.upperCI.noMPA: the upper quartile of biomass runs with stochastic recruitment in the fished state
 #' @keywords open population, population dynamics
 #' @examples openpop_ratio(tf=50, M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172,R=500,
-#'  sig_r=0.5, MPAtime=1,simulations=200)
+#'  sig_r=0.5, MPAtime=1,simulations=100)
 
 
 openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,simulations) {

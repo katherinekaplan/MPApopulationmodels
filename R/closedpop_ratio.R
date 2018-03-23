@@ -102,7 +102,7 @@ closedpop_ratio = function(tf,maxage,Lmat,Lfish,M,Fi, Linf,k,a0,pW,qW,lambda) {
   theta=acos((N0%*%w1)/(sqrt(sum(N0^2))*sqrt(sum(w1^2))))
   ages=seq(1:maxage)
   time=seq(1,tf)
-  Nratio=Nratio1[1:30]
+  Nratio=Nratioc[1:30]
   newdf2=data.frame(time[1:30],Nratio[1:30],Bratio[1:30])
   colnames(newdf2)=c("time","Nratio","Bratio")
   attach(newdf2)

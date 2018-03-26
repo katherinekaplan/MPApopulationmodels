@@ -10,11 +10,11 @@
 #' @param Lmat: length at maturity
 #' @param M: the natural mortality rate, if unknown generally use 0.2
 #' @param Fi: the fishing mortality rate, F, find in stock assessment if don't have more localized estimate
-#' @param Linf: von-bertallanfy growth parameter estimate, can find on fishbase
+#' @param Linf: asymptotic growth rate used in von-Bertallanfy growth equation, can find on fishbase
 #' @param k: von-bertallanfy growth parameter estimate
-#' @param a0: same as t0 in von-bertallanfy growth parameter
-#' @param pw: weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
-#' @param qw: weight length relationship estmate, same as b on fishbase.org
+#' @param a0: the age at length 0 used in the von-Bertallanfy growth equation
+#' @param pW: weight length relationship parameter, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
+#' @param qW: weight length relationship parameter, same as b on fishbase.org
 #' @param lambda: the population growth rate in the MPA
 #' @return P1: the period of oscillations
 #' @return rho: the rate of return to the stable age distribution in the MPA

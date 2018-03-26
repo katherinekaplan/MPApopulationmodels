@@ -10,8 +10,8 @@
 #' @param Linf: asymptotic length of the fish
 #' @param k: von-bertallanfy growth parameter estimate
 #' @param a0: the age at length 0 used in the von-Bertallanfy growth equation
-#' @param pw: weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
-#' @param qw: weight length relationship estmate, same as b on fishbase.org
+#' @param pW: weight length relationship parameter, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
+#' @param qW: weight length relationship parameter, same as b on fishbase.org
 #' @param R: the number of recruits entering the population
 #' @return N.time.to.equil= the number of years it will take for the population abundance to reach its final equilibrium abundance
 #' @return Btime.to.equil= the number of years it will take for the population biomass to reach its final equilibirum

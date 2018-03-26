@@ -1,6 +1,6 @@
 ###' An open population calculation function
 #'
-#'This function calculates the ratio change abundance and biomass of a fished poulation, after a marine protected area is implemented assuming a population with external recruitment.
+#'This function calculates the ratio change abundance and biomass of a fished population, after a marine protected area is implemented assuming a population with external recruitment.
 #'The output is three plots, one with the deterministic ratio changes in abundance and biomass for fished age classes.
 #'The second is the abundance ratio change with stochastic recruitment.
 #'The third is the biomass ratio change with stochastic recruitment.
@@ -12,8 +12,8 @@
 #' @param Linf: asymptotic growth rate used in von-Bertallanfy growth equation
 #' @param k: von-bertallanfy growth parameter estimate
 #' @param a0: age at length zero used in von-Bertallanfy growth equation
-#' @param pW: weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
-#' @param qW: weight length relationship estmate, same as b on fishbase.org
+#' @param pW: weight length relationship parameter, same as a on fishbase.org but need to divide by 1000 to get in kg not grams
+#' @param qW: weight length relationship parameter, same as b on fishbase.org
 #' @param R: number of recruits to enter the population
 #' @param sig_r: stochastic parameter, log-normal distribution, around recruitment
 #' @param simulations: the number of simulations to run the population with stochastic recruitment

@@ -1,6 +1,6 @@
 # MPApopulationmodels
 
-The R package 'MPApopulationmodels' contains several functions that can be used to project population responses to marine protected areas (MPAs).  Input parameters including life history characteristics and a prior fishing mortality rate are required to use the functions described. Each function is also documented in R and can be searched once the package is downloaded into R by typing ??function_name. The input and output for each function can be found in the R documentation.  Below I provide a brief summary of the utility of each function. 
+The R package 'MPApopulationmodels' contains several functions that can be used to project population responses to marine protected areas (MPAs).  Each function generates a Leslie matrix that is used to project changes in the population over time. Input parameters including life history characteristics and a prior fishing mortality rate are required to use the functions described. Each function is also documented in R and can be searched once the package is downloaded into R by typing ??function_name. The input and output for each function can be found in the R documentation.  Below I provide a brief summary of the utility of each function. 
 
 The following functions are available from this package:
 

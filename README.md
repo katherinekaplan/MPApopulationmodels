@@ -4,7 +4,7 @@ The R package 'MPApopulationmodels' contains several functions that can be used 
 
 The following functions are available from this package:
 
-closedpop_metrics: calculates the ratio change in a fished population after a marine protected area is implented assuming a closed population. It provides P1, the period of oscillations; rho, the rate of return to the stable age distribution in the MPA; theta, the angle between the fished state population vector and the stable age distribution in the MPA; Nratio, the abundance changes over time; Bratio, the biomass ratio change over time; and transient_length, the approximate length of the transient period calculated from rho.
+closedpop_metrics: calculates the ratio change in a fished population after a marine protected area is implented assuming a closed population. It provides P1, the period of oscillations; rho, the rate of return to the stable age distribution in the MPA; theta, the angle between the fished state population vector and the stable age distribution in the MPA; Nratio, the total abundance ratio change over time; Bratio, the biomass ratio change over time; and transient_length, the approximate length of the transient period calculated from rho. See White et al. 2013 "Transient responses to marine reserves" for more information on metrics calculated.
 
 closedpop_plot: creates a plot using ggplot that shows the changes in abundance and biomass expected following MPA implementation
 

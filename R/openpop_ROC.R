@@ -36,7 +36,7 @@
 #'  sig_r=0.5, MPAtime=1,simulations=100)
 
 
-openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,simulations) {
+openpop_ROC = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,simulations) {
   ##First step calculate the stable age distribution of the fished popultion
   a_harv0=(log((Lfish-Linf)/-Linf)/-k)+a0   ##age fished back calculated from von-B eqn
   agefish=round(a_harv0,digits=0) ##round age fished to integer
@@ -73,7 +73,7 @@ openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,s
       Nt2[t+1,2:(maxage)] = sxs*Nt2[t,1:(maxage-1)]#Survivorship of each age class  in columns 2-10
     }
   }
-###need to fix this
+  ###need to fix this
   final.N=rowSums(Nt2[,agefish:maxage]) ##include only fished age classes
   Nratio1=final.N/final.N[1]
   ##Now figure out the time point at which the final abundance is 95% of the equilibrium in the last time step
@@ -255,18 +255,13 @@ openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,s
   roc20.b=roc(cases=itero3[20,],controls=itero4[20,])
   ##put outputs in data frame to plot
   t=seq(1,tf)
-  newdf=data.frame(t,Nratio1,Bratio,
-                   Nrat.mean,Nrat.quantiles.MPA[1,],Nrat.quantiles.MPA[2,],
-                   Nrat.mean.noMPA,Nrat.quantiles.noMPA[1,],Nrat.quantiles.noMPA[2,],
-                   Brat.mean,Brat.quantiles.MPA[1,], Brat.quantiles.MPA[2,],
-                   Brat.mean.noMPA, Brat.quantiles.noMPA[1,],Brat.quantiles.noMPA[2,])
-  colnames(newdf)=c("time","Nratio","Bratio",
-                    "Nrat.sim.mean","Nrat.lowerCI.MPA","Nrat.upperCI.MPA",
-                    "Nrat.mean.noMPA","Nrat.lowerCI.noMPA","Nrat.upperCI.noMPA",
-                    "Bratio.sim.mean","Brat.lowerCI.MPA","Brat.upperCI.MPA",
-                    "Brat.mean.noMPA","Brat.lowerCI.noMPA","Brat.upperCI.noMPA")
-  attach(newdf)
-  return(newdf)
+  newdf3=data.frame(roc2=roc2$auc,roc5=roc5$auc,roc10=roc10$auc,roc20=roc20$auc,
+                   roc2.b=roc2.b$auc,roc5.b=roc5.b$auc,roc10.b=roc10.b$auc,
+                   roc20.b=roc20.b$auc)
+  colnames(newdf3)=c("roc2.a","roc5.a","roc10.a","roc20.a","roc2.b",
+                     "roc5.b","roc10.b","roc20.b")
+  attach(newdf3)
+  return(newdf3)
 }
 
 

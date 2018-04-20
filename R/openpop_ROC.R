@@ -17,20 +17,14 @@
 #' @param sig_r: stochastic parameter, log-normal distribution, around recruitment
 #' @param MPAtime: the time step to implement the MPA
 #' @param simulations: the number of simulations to run
-#' @return Nratio: the abundance ratio change over time
-#' @return Bratio: the biomass ratio change over time
-#' @return Nrat.sim.mean: the mean of abundance for simulation runs with stochastic recruitment in the MPA
-#' @return Nrat.lowerCI.MPA: the lower quartile of abundance runs with stochastic recruitment in the MPA
-#' @return Nrat.upperCI.MPA: the upper quartile of abundance runs with stochastic recruitment in the MPA
-#' @return Nrat.mean.noMPA: the mean of changes in simulated abundance with stochastic recruitment in the fished state
-#' @return Nrat.lowerCI.noMPA: the lower quartile of simulated runs for abundance with stochastic recruitment in the fished state
-#' @return Nrat.upperCI.noMPA: the lower quartile of simulated runs with stochastic recruitment in the fished state
-#' @return Bratio.sim.mean: the mean of changes in biomass for simulation runs with stochastic recruitment in the MPA
-#' @return Brat.lowerCI.MPA: the lower quartile of biomass runs with stochastic recruitment in the MPA
-#' @return Brat.upperCI.MPA: the upper quartile of biomass runs with stochastic recruitment in the MPA
-#' @return Brat.mean.noMPA: the mean of changes in biomass for simulation runs with stochastic recruitment in the fished state
-#' @return Brat.lowerCI.noMPA: the lower quartile of biomass runs with stochastic recruitment in the fished state
-#' @return Brat.upperCI.noMPA: the upper quartile of biomass runs with stochastic recruitment in the fished state
+#' @return roc2.a: returns the area under an reciever operating characteristic curve for abundance at year 2 since MPA implementation
+#' @return roc5.a: returns the area under an reciever operating characteristic curve for abundance at year 5 since MPA implementation
+#' @return roc10.a: returns the area under an reciever operating characteristic curve for abundance at year 10 since MPA implementation
+#' @return roc20.a: returns the area under an reciever operating characteristic curve for abundance at year 20 since MPA implementation
+#' @return roc2.b: returns the area under an reciever operating characteristic curve for biomass at year 2 since MPA implementation
+#' @return roc5.b: returns the area under an reciever operating characteristic curve for biomass at year 5 since MPA implementation
+#' @return roc10.b: returns the area under an reciever operating characteristic curve for biomass at year 10 since MPA implementation
+#' @return roc20.b: returns the area under an reciever operating characteristic curve for biomass at year 20 since MPA implementation
 #' @keywords open population, population dynamics
 #' @examples openpop_ratio(tf=50, M=0.2,Fi=0.14,Lfish=25,Linf=37.8,k=0.13,a0=-0.7,maxage=25,pW=9.37e-06,qW=3.172,R=500,
 #'  sig_r=0.5, MPAtime=1,simulations=100)

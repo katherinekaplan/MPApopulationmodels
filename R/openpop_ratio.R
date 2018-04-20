@@ -244,15 +244,6 @@ openpop_ratio = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,s
   }
   Brat.mean.noMPA=rowMeans(itero4) ##this takes the mean of the simulations
   Brat.quantiles.noMPA=apply(itero4,1,quantile,probs=c(0.25,0.75))
-  library(pROC)
-  roc2=roc(cases=itero[2,],controls=itero2[2,])
-  roc5=roc(cases=itero[5,],controls=itero2[5,])
-  roc10=roc(cases=itero[10,],controls=itero2[10,])
-  roc20=roc(cases=itero[20,],controls=itero2[20,])
-  roc2.b=roc(cases=itero3[2,],controls=itero4[2,])
-  roc5.b=roc(cases=itero3[5,],controls=itero4[5,])
-  roc10.b=roc(cases=itero3[10,],controls=itero4[10,])
-  roc20.b=roc(cases=itero3[20,],controls=itero4[20,])
   ##put outputs in data frame to plot
   t=seq(1,tf)
   newdf=data.frame(t,Nratio1,Bratio,

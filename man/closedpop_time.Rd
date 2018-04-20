@@ -20,15 +20,15 @@ closedpop_time(tf, maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW)
 
 \item{Fi}{the fishing mortality rate, F, find in stock assessment if don't have more localized estimate}
 
-\item{Linf}{von-bertallanfy growth parameter estimate, can find on fishbase.org}
+\item{Linf}{asymptotic growth rate used in von-Bertallanfy growth equation, can find on fishbase}
 
 \item{k}{von-bertallanfy growth parameter estimate}
 
-\item{a0}{same as t0 in von-bertallanfy growth parameter}
+\item{a0}{the age at length 0 used in the von-Bertallanfy growth equation}
 
-\item{pw}{weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
+\item{pW}{weight length relationship parameter, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
 
-\item{qw}{weight length relationship estmate, same as b on fishbase.org}
+\item{qW}{weight length relationship parameter, same as b on fishbase.org}
 }
 \value{
 transient_length is the length of time of the transient duration for the closed population

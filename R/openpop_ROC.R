@@ -249,11 +249,11 @@ openpop_ROC = function(tf,maxage,M,Fi,Lfish, Linf,k,a0,pW,qW,R,sig_r,MPAtime,sim
   roc20.b=roc(cases=itero3[20,],controls=itero4[20,])
   ##put outputs in data frame to plot
   t=seq(1,tf)
-  newdf3=data.frame(roc2=roc2$auc,roc5=roc5$auc,roc10=roc10$auc,roc20=roc20$auc,
-                   roc2.b=roc2.b$auc,roc5.b=roc5.b$auc,roc10.b=roc10.b$auc,
-                   roc20.b=roc20.b$auc)
-  colnames(newdf3)=c("roc2.a","roc5.a","roc10.a","roc20.a","roc2.b",
-                     "roc5.b","roc10.b","roc20.b")
+  times=c(2,5,10,20)
+  ROC.AUC.a=c(roc2$auc,roc5$auc,roc10$auc,roc20$auc)
+  ROC.AUC.b=c(roc2.b$auc,roc5.b$auc,roc10.b$auc,roc20.b$auc)
+  newdf3=data.frame(times, ROC.AUC.a, ROC.AUC.b)
+  colnames(newdf3)=c("times","ROC.AUC.a","ROC.AUC.b")
   attach(newdf3)
   return(newdf3)
 }

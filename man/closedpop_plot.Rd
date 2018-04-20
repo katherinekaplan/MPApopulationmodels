@@ -22,11 +22,11 @@ closedpop_plot(maxage, Lmat, Lfish, M, Fi, Linf, k, a0, pW, qW, lambda,
 
 \item{a0:}{the age at length 0 used in the von-Bertallanfy growth equation}
 
-\item{pw:}{weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
+\item{pW:}{weight length relationship parameter, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
 
-\item{qw:}{weight length relationship estmate, same as b on fishbase.org}
+\item{qW:}{weight length relationship parameter, same as b on fishbase.org}
 
-\item{lambda:}{set the ppulation growth rate in the MPA}
+\item{lambda:}{set the population growth rate in the MPA}
 
 \item{timeplot:}{the time of the transient duration to plot on the output}
 }

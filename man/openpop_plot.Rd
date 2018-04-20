@@ -24,9 +24,9 @@ openpop_plot(tf, maxage, M, Fi, Lfish, Linf, k, a0, pW, qW, R, sig_r,
 
 \item{a0:}{age at length zero used in von-Bertallanfy growth equation}
 
-\item{pW:}{weight length relationship estimate, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
+\item{pW:}{weight length relationship parameter, same as a on fishbase.org but need to divide by 1000 to get in kg not grams}
 
-\item{qW:}{weight length relationship estmate, same as b on fishbase.org}
+\item{qW:}{weight length relationship parameter, same as b on fishbase.org}
 
 \item{R:}{number of recruits to enter the population}
 
@@ -37,7 +37,7 @@ openpop_plot(tf, maxage, M, Fi, Lfish, Linf, k, a0, pW, qW, R, sig_r,
 \item{MPAtime:}{the timestep that the MPA is implemented}
 }
 \description{
-This function calculates the ratio change abundance and biomass of a fished poulation, after a marine protected area is implemented assuming a population with external recruitment.
+This function calculates the ratio change abundance and biomass of a fished population, after a marine protected area is implemented assuming a population with external recruitment.
 The output is three plots, one with the deterministic ratio changes in abundance and biomass for fished age classes.
 The second is the abundance ratio change with stochastic recruitment.
 The third is the biomass ratio change with stochastic recruitment.
